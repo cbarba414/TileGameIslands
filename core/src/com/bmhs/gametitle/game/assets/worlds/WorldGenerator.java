@@ -29,17 +29,15 @@ public class WorldGenerator {
 
         for (int r = 0; r < worldIntMap.length; r++) {
             for (int c = 0; c < worldIntMap [r].length; c++) {
-                Vector2 tempVector = new Vector2(r, c);
+                Vector2 tempVector = new Vector2(c, r);
                 if (tempVector.dst(mapSeed) < 10) {
                     worldIntMap [r][c] = 2;
                 }
             }
         }
-
         //call methods to build 2D array
         //randomize();
         //leftCoast ();
-       // sillyIsland();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
 
         generateWorldTextFile();
@@ -74,23 +72,21 @@ public class WorldGenerator {
         }
     } */
 
-/*
-    public int sillyIsland () {
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for(int c = 0; c < worldIntMap[r].length; c++) {
-                worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
-                if (c >10) {
-                    worldIntMap [r][c] = 9;
-                }
-            }
-        }
-    }
-    */
 
     public void randomize() {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
                 worldIntMap[r][c] = MathUtils.random(TileHandler.getTileHandler().getWorldTileArray().size-1);
+            }
+        }
+    }
+
+    public void setWater () {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if (c >= 0) {
+                    worldIntMap[r][c] = 20;
+                }
             }
         }
     }
