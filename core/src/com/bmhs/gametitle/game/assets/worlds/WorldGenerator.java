@@ -84,7 +84,7 @@ public class WorldGenerator {
     public void setWater () {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
-                if (c >= 0) {
+                if (c <= 0) {
                     worldIntMap[r][c] = 20;
                 }
             }
