@@ -19,7 +19,7 @@ public class TileHandler {
 
     private Array<WorldTile> worldTileArray;
 
-    // private final String grassSpriteSheetPath = "grassSpriteSheet.png";
+    private final String grassSpriteSheetPath = "grassSpriteSheet.png";
     private TileHandler() {
         spriteOnSheetHeight = Tile.ON_SCREEN_DEFAULT_HEIGHT;
         spriteOnSheetWidth = Tile.ON_SCREEN_DEFAULT_WIDTH;
@@ -31,7 +31,7 @@ public class TileHandler {
         worldTileArray.add(new WorldTile(new TextureRegion(new Texture(primaryColorSheetPath), 0, 0, spriteOnSheetWidth, spriteOnSheetHeight), 0, "transparent"));
 
         createWorldTiles(primaryColorSheetPath, "primary color", worldTileArray);
-        // createWorldTiles(grassSpriteSheetPath, "grass", worldTileArray);
+        createWorldTiles(grassSpriteSheetPath, "grass", worldTileArray);
     }
 
     public static TileHandler getTileHandler() {
