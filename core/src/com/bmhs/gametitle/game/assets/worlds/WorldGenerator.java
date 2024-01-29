@@ -38,14 +38,19 @@ public class WorldGenerator {
         //call methods to build 2D array
         //randomize();
         //leftCoast ();
+        setWater();
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
 
         generateWorldTextFile();
     }
-
-    private void generateWorldTextFile () {
-        FileHandle file = Gdx.files.local ("assets/worlds/world.txt");
-        file.writeString (getWorld3DArrayToString(), false);
+    public void setWater () {
+        for(int r = 0; r < worldIntMap.length; r++) {
+            for(int c = 0; c < worldIntMap[r].length; c++) {
+                if (c >= 0) {
+                    worldIntMap[r][c]= 16;
+                }
+            }
+        }
     }
 
     public String getWorld3DArrayToString() {
@@ -81,15 +86,7 @@ public class WorldGenerator {
         }
     }
 
-    public void setWater () {
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for(int c = 0; c < worldIntMap[r].length; c++) {
-                if (c <= 0) {
-                    worldIntMap[r][c] = 20;
-                }
-            }
-        }
-    }
+
 
     public WorldTile[][] generateWorld() {
         WorldTile[][] worldTileMap = new WorldTile[worldMapRows][worldMapColumns];
@@ -100,5 +97,8 @@ public class WorldGenerator {
         }
         return worldTileMap;
     }
-
+    private void generateWorldTextFile () {
+        FileHandle file = Gdx.files.local ("assets/worlds/world.txt");
+        file.writeString (getWorld3DArrayToString(), false);
+    }
 }
