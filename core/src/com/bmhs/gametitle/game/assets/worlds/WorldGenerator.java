@@ -38,19 +38,19 @@ public class WorldGenerator {
             }
         }
 
-        seedColor = 2;
-        lightGreen = 17;
+        seedColor = 32;
+        lightGreen = 47;
         //call methods to build 2D array
         //randomize();
         //leftCoast ();
         setWater();
         seedIslands (5);
 
-        searchAndExpand(10, seedColor, lightGreen, 0.25);
-        searchAndExpand(2, seedColor, 18, 0.85);
-        searchAndExpand(3, seedColor, 45, 0.75);
-        searchAndExpand(4, seedColor, 23, 0.85);
-        searchAndExpand(9, seedColor, 12, 0.95);
+        searchAndExpand(35, seedColor, lightGreen, 0.8);
+       searchAndExpand(30, seedColor, 18, 0.85);
+        searchAndExpand(25, seedColor, 37, 0.75);
+        searchAndExpand(20, seedColor, 44, 0.85);
+        searchAndExpand(15, seedColor, 46, 0.8);
 
 
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
@@ -61,7 +61,7 @@ public class WorldGenerator {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
                 if (c >= 0) {
-                    worldIntMap[r][c]= 21;
+                    worldIntMap[r][c]= 20;
                 }
             }
         }
@@ -111,7 +111,7 @@ public class WorldGenerator {
                         for (int subCol = c-radius; subCol <=c+radius; subCol++) {
 
                             if (subRow >= 0 && subCol >= 0 && subRow <= worldIntMap.length -1 && subCol <= worldIntMap[0].length-1 && worldIntMap [subRow][subCol] != seedColor) {
-                                worldIntMap[subRow][subCol] = 3;
+                                worldIntMap[subRow][subCol] = 32;
 
                             }
 
