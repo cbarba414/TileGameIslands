@@ -47,7 +47,7 @@ public class WorldGenerator {
         seedIslands (5);
 // hi
         searchAndExpand(35, seedColor, lightGreen, 0.8);
-       searchAndExpand(30, seedColor, 18, 0.85);
+         searchAndExpand(30, seedColor, 18, 0.85);
         searchAndExpand(25, seedColor, 37, 0.75);
         searchAndExpand(20, seedColor, 44, 0.85);
         searchAndExpand(15, seedColor, 46, 0.8);
