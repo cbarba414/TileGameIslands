@@ -23,6 +23,7 @@ public class WorldGenerator {
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
+
         Vector2 mapSeed = new Vector2(MathUtils.random (worldIntMap[0].length), MathUtils.random (worldIntMap.length));
         System.out.println (mapSeed.y + " " + mapSeed.x);
 
@@ -57,6 +58,11 @@ public class WorldGenerator {
 
         generateWorldTextFile();
     }
+
+
+    //worldIntMap[(int)mapSeed.y][(int)mapSeed.x] = seedColor;
+
+
     public void setWater () {
         for(int r = 0; r < worldIntMap.length; r++) {
             for(int c = 0; c < worldIntMap[r].length; c++) {
@@ -125,6 +131,7 @@ public class WorldGenerator {
     }
 
 // later, ask chatgpt for help on how to make island squares circles instead
+
 
     public String getWorld3DArrayToString() {
         String returnString = "";
