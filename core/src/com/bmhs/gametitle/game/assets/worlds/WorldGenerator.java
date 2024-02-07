@@ -130,7 +130,6 @@ public class WorldGenerator {
         }
     }
 
-// later, ask chatgpt for help on how to make island squares circles instead
 
 
     public String getWorld3DArrayToString() {

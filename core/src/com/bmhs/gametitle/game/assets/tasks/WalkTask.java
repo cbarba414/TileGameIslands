@@ -4,20 +4,16 @@ import com.badlogic.gdx.ai.btree.LeafTask;
 import com.badlogic.gdx.ai.btree.Task;
 import com.bmhs.gametitle.game.assets.characters.NonPlayerCharacter;
 
-public class TalkTask extends LeafTask<NonPlayerCharacter> {
-
-    NonPlayerCharacter npc;
-
-    @Override
-    public void start () {
-        System.out.print("starting talk task");
+public class WalkTask extends LeafTask<NonPlayerCharacter> {
+NonPlayerCharacter npc;
+    public void start() {
+        System.out.println ("starting walk task");
         npc = getObject();
     }
-
     @Override
     public Status execute() {
-        System.out.print("executing talk task");
-        npc.talk();
+        System.out.println ("executing walk task");
+        npc.walk();
         return Status.SUCCEEDED;
     }
 
