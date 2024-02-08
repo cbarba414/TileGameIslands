@@ -25,8 +25,9 @@ public class WorldGenerator {
 
 
         Vector2 mapSeed = new Vector2(MathUtils.random (worldIntMap[0].length), MathUtils.random (worldIntMap.length));
-        System.out.println (mapSeed.y + " " + mapSeed.x);
+        //Vector2 mapSeed = new Vector2(10,20);
 
+        System.out.println (mapSeed.y + " " + mapSeed.x);
 
         worldIntMap [(int) mapSeed.y][(int) mapSeed.x] = 4;
 
@@ -39,19 +40,20 @@ public class WorldGenerator {
             }
         }
 
-        seedColor = 32;
+        seedColor = 38;
         lightGreen = 47;
         //call methods to build 2D array
         //randomize();
         //leftCoast ();
-        setWater();
-        seedIslands (5);
 
-        searchAndExpand(35, seedColor, lightGreen, 0.8);
-        searchAndExpand(30, seedColor, 18, 0.85);
-        searchAndExpand(25, seedColor, 37, 0.75);
-        searchAndExpand(20, seedColor, 44, 0.85);
-        searchAndExpand(15, seedColor, 46, 0.4);
+        setWater();
+        seedIslands (10, 70);
+
+        searchAndExpand(6, seedColor, lightGreen, 0.6);
+        searchAndExpand(4, seedColor, 18, 0.55);
+        searchAndExpand(2, seedColor, 44, 0.5);
+        searchAndExpand(1, seedColor, 45, 0.45);
+        searchAndExpand(1, seedColor, 46, 0.4);
 
 
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
@@ -73,13 +75,70 @@ public class WorldGenerator {
         }
     }
 
-    private void seedIslands (int num) {
-        for (int i = 0; i < num; i++) {
-            int rSeed = MathUtils.random (worldIntMap.length-1);
-            int cSeed = MathUtils.random(worldIntMap[0].length-1);
-            worldIntMap[rSeed][cSeed] = seedColor;
+//    private void seedIslands (int num) {
+//        for (int i = 0; i < num; i++) {
+//            int rSeed = MathUtils.random (worldIntMap.length-1);
+//            int cSeed = MathUtils.random(worldIntMap[0].length-1);
+//            worldIntMap[rSeed][cSeed] = seedColor;
+//
+//        }
+//    }
+// // the code above was the old method, this below is the new onw
+
+    // below is the new seedislands im working on
+//private void seedIslands (int clusters, int islandsInCluster) {
+//    for (int i = 0; i < clusters; i++) {
+//        int rSeed = MathUtils.random(worldIntMap.length - 1);
+//        int cSeed = MathUtils.random(worldIntMap[0].length - 1);
+//
+//        for (int island = 0; island < islandsInCluster; island++) {
+//            int islandSize = MathUtils.random(worldMapColumns - 1);
+//            int startX = MathUtils.random(rSeed - 1, rSeed + 1);
+//            int startY = MathUtils.random(cSeed - 1, cSeed - 1);
+//
+//
+//            for (int y = startY - islandSize; y <= startY + islandSize; y++) {
+//                for (int x = startX - islandSize; y <= startX + islandSize; x++) {
+//                    if (x >= 0 && x < cSeed && y >= 0 && y < rSeed) {
+//                        if (MathUtils.random() < 0.001) {
+//                            worldIntMap[y][x] = seedColor;
+//                        }
+//
+//
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+private void seedIslands(int numClusters, int numIslandsPerCluster) {
+    for (int cluster = 0; cluster < numClusters; cluster++) {
+        // Generate random cluster center
+        int clusterCenterX = MathUtils.random(worldMapColumns - 1);
+        int clusterCenterY = MathUtils.random(worldMapRows - 1);
+
+//        // Generate islands around the cluster center
+        for (int island = 0; island < numIslandsPerCluster; island++) {
+            int islandSize = MathUtils.random(1, 17); // Random island size
+            int startX = MathUtils.random(clusterCenterX - 1, clusterCenterX + 1);
+            int startY = MathUtils.random(clusterCenterY - 1, clusterCenterY + 1);
+
+            // Generate island shape
+            for (int y = startY - islandSize; y <= startY + islandSize; y++) {
+                for (int x = startX - islandSize; x <= startX + islandSize; x++) {
+                    if (x >= 0 && x < worldMapColumns && y >= 0 && y < worldMapRows) {
+                        if (MathUtils.random() < 0.001) { // Adjust randomness to control island shape
+                            // Set the island color
+                            worldIntMap[y][x] = seedColor;
+                        }
+                    }
+                }
+            }
         }
     }
+}
+
 
     private void searchAndExpand (int radius, int numToFind, int numToWrite, double probability) {
         for (int r = 0; r < worldIntMap.length; r++) {
