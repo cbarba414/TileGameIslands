@@ -17,25 +17,25 @@ public class WorldGenerator {
 
     private int seedColor, lightGreen, Green;
 
-    public WorldGenerator (int worldMapRows, int worldMapColumns) {
+    public WorldGenerator(int worldMapRows, int worldMapColumns) {
         this.worldMapRows = worldMapRows;
         this.worldMapColumns = worldMapColumns;
 
         worldIntMap = new int[worldMapRows][worldMapColumns];
 
 
-        Vector2 mapSeed = new Vector2(MathUtils.random (worldIntMap[0].length), MathUtils.random (worldIntMap.length));
+        Vector2 mapSeed = new Vector2(MathUtils.random(worldIntMap[0].length), MathUtils.random(worldIntMap.length));
         //Vector2 mapSeed = new Vector2(10,20);
 
-        System.out.println (mapSeed.y + " " + mapSeed.x);
+        System.out.println(mapSeed.y + " " + mapSeed.x);
 
-        worldIntMap [(int) mapSeed.y][(int) mapSeed.x] = 4;
+        worldIntMap[(int) mapSeed.y][(int) mapSeed.x] = 4;
 
         for (int r = 0; r < worldIntMap.length; r++) {
-            for (int c = 0; c < worldIntMap [r].length; c++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
                 Vector2 tempVector = new Vector2(c, r);
                 if (tempVector.dst(mapSeed) < 10) {
-                    worldIntMap [r][c] = 2;
+                    worldIntMap[r][c] = 2;
                 }
             }
         }
@@ -47,7 +47,7 @@ public class WorldGenerator {
         //leftCoast ();
 
         setWater();
-        seedIslands (10, 70);
+        seedIslands(10, 70);
 
         searchAndExpand(6, seedColor, lightGreen, 0.6);
         searchAndExpand(4, seedColor, 18, 0.55);
@@ -65,11 +65,11 @@ public class WorldGenerator {
     //worldIntMap[(int)mapSeed.y][(int)mapSeed.x] = seedColor;
 
 
-    public void setWater () {
-        for(int r = 0; r < worldIntMap.length; r++) {
-            for(int c = 0; c < worldIntMap[r].length; c++) {
+    public void setWater() {
+        for (int r = 0; r < worldIntMap.length; r++) {
+            for (int c = 0; c < worldIntMap[r].length; c++) {
                 if (c >= 0) {
-                    worldIntMap[r][c]= 20;
+                    worldIntMap[r][c] = 20;
                 }
             }
         }
@@ -85,7 +85,8 @@ public class WorldGenerator {
 //    }
 // // the code above was the old method, this below is the new onw
 
-    // below is the new seedislands im working on
+    // below is the new seedislands im working on. for tomorrow, i need to make sure this method works and
+    // that maybe i can increase the size of the vector
 //private void seedIslands (int clusters, int islandsInCluster) {
 //    for (int i = 0; i < clusters; i++) {
 //        int rSeed = MathUtils.random(worldIntMap.length - 1);
@@ -112,32 +113,33 @@ public class WorldGenerator {
 //    }
 //}
 
-private void seedIslands(int numClusters, int numIslandsPerCluster) {
-    for (int cluster = 0; cluster < numClusters; cluster++) {
-        // Generate random cluster center
-        int clusterCenterX = MathUtils.random(worldMapColumns - 1);
-        int clusterCenterY = MathUtils.random(worldMapRows - 1);
+    private void seedIslands(int numClusters, int numIslandsPerCluster) {
+        for (int cluster = 0; cluster < numClusters; cluster++) {
+            // Generate random cluster center
+            int clusterCenterX = MathUtils.random(worldMapColumns - 1);
+            int clusterCenterY = MathUtils.random(worldMapRows - 1);
 
-//        // Generate islands around the cluster center
-        for (int island = 0; island < numIslandsPerCluster; island++) {
-            int islandSize = MathUtils.random(1, 17); // Random island size
-            int startX = MathUtils.random(clusterCenterX - 1, clusterCenterX + 1);
-            int startY = MathUtils.random(clusterCenterY - 1, clusterCenterY + 1);
+        // Generate islands around the cluster center
+            for (int island = 0; island < numIslandsPerCluster; island++) {
+                int islandSize = MathUtils.random(1, 17); // Random island size
+                int startX = MathUtils.random(clusterCenterX - 1, clusterCenterX + 1);
+                int startY = MathUtils.random(clusterCenterY - 1, clusterCenterY + 1);
 
-            // Generate island shape
-            for (int y = startY - islandSize; y <= startY + islandSize; y++) {
-                for (int x = startX - islandSize; x <= startX + islandSize; x++) {
-                    if (x >= 0 && x < worldMapColumns && y >= 0 && y < worldMapRows) {
-                        if (MathUtils.random() < 0.001) { // Adjust randomness to control island shape
-                            // Set the island color
-                            worldIntMap[y][x] = seedColor;
+                // Generate island shape
+                for (int y = startY - islandSize; y <= startY + islandSize; y++) {
+                    for (int x = startX - islandSize; x <= startX + islandSize; x++) {
+                        if (x >= 0 && x < worldMapColumns && y >= 0 && y < worldMapRows) {
+                            if (MathUtils.random() < 0.001) { // Adjust randomness to control island shape
+                                // Set the island color
+                                worldIntMap[y][x] = seedColor;
+                            }
                         }
                     }
                 }
             }
         }
     }
-}
+
 
 
     private void searchAndExpand (int radius, int numToFind, int numToWrite, double probability) {
