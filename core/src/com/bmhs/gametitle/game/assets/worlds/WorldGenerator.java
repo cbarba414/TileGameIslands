@@ -83,12 +83,12 @@ public class WorldGenerator {
 
             for (int island = 0; island < numIslandsPerGroup; island++) {
                 int islandSize = MathUtils.random(1, 17);
-                int startRSeed = MathUtils.random(rSeed - 1, rSeed + 1);
-                int startCSeed = MathUtils.random(cSeed - 1, cSeed + 1);
+                int firstRSeed = MathUtils.random(rSeed - 1, rSeed + 1);
+                int firstCSeed = MathUtils.random(cSeed - 1, cSeed + 1);
 
 
-                for (int r = startRSeed - islandSize; r <= startRSeed + islandSize; r++) {
-                    for (int c = startCSeed - islandSize; c <= startCSeed + islandSize; c++) {
+                for (int r = firstRSeed - islandSize; r <= firstRSeed + islandSize; r++) {
+                    for (int c = firstCSeed - islandSize; c <= firstCSeed + islandSize; c++) {
                         if (c >= 0 && c < worldMapColumns && r >= 0 && r < worldMapRows) {
                             if (MathUtils.random() < 0.001) {
                                 worldIntMap[r][c] = seedColor;
