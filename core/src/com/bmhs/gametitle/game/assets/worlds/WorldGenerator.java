@@ -40,20 +40,19 @@ public class WorldGenerator {
             }
         }
 
-        seedColor = 38;
-        lightGreen = 47;
-        //call methods to build 2D array
+        seedColor = 46;
         //randomize();
         //leftCoast ();
 
         setWater();
         seedIslands(10, 70);
-
-        searchAndExpand(6, seedColor, lightGreen, 0.6);
-        searchAndExpand(4, seedColor, 18, 0.55);
-        searchAndExpand(2, seedColor, 44, 0.5);
-        searchAndExpand(1, seedColor, 45, 0.45);
-        searchAndExpand(1, seedColor, 46, 0.4);
+        //change colors
+        searchAndExpand(8, seedColor, 30, 0.15);
+        searchAndExpand(8, seedColor, 31, 0.25);
+        searchAndExpand(5, seedColor, 40, 0.45);
+        searchAndExpand(3, seedColor, 53, 0.55);
+        searchAndExpand(2, seedColor, 73, 0.65);
+        searchAndExpand(1, seedColor, 45, 0.70);
 
 
         Gdx.app.error("WorldGenerator", "WorldGenerator(WorldTile[][][])");
@@ -75,63 +74,24 @@ public class WorldGenerator {
         }
     }
 
-//    private void seedIslands (int num) {
-//        for (int i = 0; i < num; i++) {
-//            int rSeed = MathUtils.random (worldIntMap.length-1);
-//            int cSeed = MathUtils.random(worldIntMap[0].length-1);
-//            worldIntMap[rSeed][cSeed] = seedColor;
-//
-//        }
-//    }
-// // the code above was the old method, this below is the new onw
 
-    // below is the new seedislands im working on. for tomorrow, i need to make sure this method works and
-    // that maybe i can increase the size of the vector
-//private void seedIslands (int clusters, int islandsInCluster) {
-//    for (int i = 0; i < clusters; i++) {
-//        int rSeed = MathUtils.random(worldIntMap.length - 1);
-//        int cSeed = MathUtils.random(worldIntMap[0].length - 1);
-//
-//        for (int island = 0; island < islandsInCluster; island++) {
-//            int islandSize = MathUtils.random(worldMapColumns - 1);
-//            int startX = MathUtils.random(rSeed - 1, rSeed + 1);
-//            int startY = MathUtils.random(cSeed - 1, cSeed - 1);
-//
-//
-//            for (int y = startY - islandSize; y <= startY + islandSize; y++) {
-//                for (int x = startX - islandSize; y <= startX + islandSize; x++) {
-//                    if (x >= 0 && x < cSeed && y >= 0 && y < rSeed) {
-//                        if (MathUtils.random() < 0.001) {
-//                            worldIntMap[y][x] = seedColor;
-//                        }
-//
-//
-//                    }
-//                }
-//            }
-//        }
-//    }
-//}
+    private void seedIslands(int numOfGroups, int numIslandsPerGroup) {
 
-    private void seedIslands(int numClusters, int numIslandsPerCluster) {
-        for (int cluster = 0; cluster < numClusters; cluster++) {
-            // Generate random cluster center
-            int clusterCenterX = MathUtils.random(worldMapColumns - 1);
-            int clusterCenterY = MathUtils.random(worldMapRows - 1);
+        for (int group = 0; group < numOfGroups; group++) {
+            int cSeed = MathUtils.random(worldMapColumns - 1);
+            int rSeed = MathUtils.random(worldMapRows - 1);
 
-        // Generate islands around the cluster center
-            for (int island = 0; island < numIslandsPerCluster; island++) {
-                int islandSize = MathUtils.random(1, 17); // Random island size
-                int startX = MathUtils.random(clusterCenterX - 1, clusterCenterX + 1);
-                int startY = MathUtils.random(clusterCenterY - 1, clusterCenterY + 1);
+            for (int island = 0; island < numIslandsPerGroup; island++) {
+                int islandSize = MathUtils.random(1, 17);
+                int startRSeed = MathUtils.random(rSeed - 1, rSeed + 1);
+                int startCSeed = MathUtils.random(cSeed - 1, cSeed + 1);
 
-                // Generate island shape
-                for (int y = startY - islandSize; y <= startY + islandSize; y++) {
-                    for (int x = startX - islandSize; x <= startX + islandSize; x++) {
-                        if (x >= 0 && x < worldMapColumns && y >= 0 && y < worldMapRows) {
-                            if (MathUtils.random() < 0.001) { // Adjust randomness to control island shape
-                                // Set the island color
-                                worldIntMap[y][x] = seedColor;
+
+                for (int r = startRSeed - islandSize; r <= startRSeed + islandSize; r++) {
+                    for (int c = startCSeed - islandSize; c <= startCSeed + islandSize; c++) {
+                        if (c >= 0 && c < worldMapColumns && r >= 0 && r < worldMapRows) {
+                            if (MathUtils.random() < 0.001) {
+                                worldIntMap[r][c] = seedColor;
                             }
                         }
                     }
